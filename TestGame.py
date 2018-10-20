@@ -1,6 +1,8 @@
 import time
 import sys
 import os
+from random import randint
+
 #Player Stats
 name = ''
 hp = 50
@@ -77,9 +79,17 @@ def mainGameMenu():
         mainGameMenu()
 
 def randomDungeon():
-    dung = 1
+    dung = randint(0, 2)
     if (dung == 1):
         result = crabAttack()
+        if (result == True):
+            speak('Event Completed!')
+        else:
+            speak('Event Avoided!')
+    else:
+        print('')
+    if (dung == 2):
+        result = giantSpider()
         if (result == True):
             speak('Event Completed!')
         else:
@@ -302,6 +312,28 @@ def crabAttack():
     else:
         speak('Your response confuses the man and he backs away slowly from you')
         return False
+    
+def giantSpider():
+    speak('While walking throught the cave you feel cobwebs across your face')
+    speak('You back off and feel yourslef get stuck in a web')
+    speak('As you struggle out you notice a Giant Spider walking towards you')
+    speak("You wriggle free and can see the exit")
+    speak(name+', do you run away or stay to fight? Fight or Run ')
+    des = input('')
+    if (des == 'Fight') or (des == 'fight') or (des == 'f'):
+        speak('You approach the Giant Spider and prepare to fight!')
+        battle('Giant Spider', 10,1, 10)
+        speak('The Giant Spider dies')
+        speak('You received 2 gold and Spider Venom')
+        return True
+    elif (des == 'Run') or (des == 'run') or (des == 'r'):
+        speak("You manage to escape the cave")
+        return False
+    else:
+        speak('The spider takes advantage of your confusion and attacks')
+        battle('Giant Spider', 10,1,10)
+        return True
+        
     
 def battle(emobname, emobhp, emobamr, emobatt):
     global name
